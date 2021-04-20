@@ -39,6 +39,23 @@ static void testAzureIoTMessagePropertiesInit_Failure( void ** ppvState )
 }
 /*-----------------------------------------------------------*/
 
+static void testAzureIoTMessagePropertiesInit_TooManyWrittenFailure( void ** ppvState )
+{
+    AzureIoTMessageProperties_t xTestMessageProperties;
+
+    ( void ) ppvState;
+
+    /* Fail init when null Message control block */
+    assert_int_equal( AzureIoT_MessagePropertiesInit( NULL, ucBuffer, 0, sizeof( ucBuffer ) ),
+                      eAzureIoTInvalidArgument );
+
+    /* Fail init when null Buffer */
+    assert_int_equal( AzureIoT_MessagePropertiesInit( &xTestMessageProperties,
+                                                      NULL, 0, 0 ),
+                      eAzureIoTInvalidArgument );
+}
+/*-----------------------------------------------------------*/
+
 static void testAzureIoTMessagePropertiesInit_Success( void ** ppvState )
 {
     AzureIoTMessageProperties_t xTestMessageProperties;
